@@ -22,11 +22,7 @@ public class Controller {
 
 	@RequestMapping(value = "/save", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public void save() throws Exception {
-		// byte[] arr = Files.readAllBytes(Paths.get("C:\\Users\\lakhdeep
-		// kaur\\Desktop\\Comparison of Adjectives.json"));
-		// String text = new String(Files.readAllBytes(Paths.get("C:\Users\lakhdeep
-		// kaur\Desktop")),
-		// Path files=Paths.get("C:\\Users\\lakhdeep kaur\\Desktop\\quest\\");
+		
 		ObjectMapper mapper = new ObjectMapper();
 		File file = new File("C:\\Users\\lakhdeep kaur\\Desktop\\quest");
 		for (File file1 : file.listFiles()) {
