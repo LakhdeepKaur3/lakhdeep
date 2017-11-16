@@ -66,16 +66,7 @@ public class Controller {
 						 * bufferedReader.readLine()) != null) { obj = (JSONObject) new
 						 * JSONParser().parse(line); json.add(obj);
 						 */
-						/*
-						 * public static void main(String[] args) throws JsonProcessingException,
-						 * Exception {
-						 * 
-						 * 
-						 * ObjectMapper mapper = new ObjectMapper(); JsonNode localeTemp =
-						 * mapper.readTree(new
-						 * File("C:\\Users\\lakhdeep kaur\\Desktop\\quest\\class-5\\english\\adjective")
-						 * ); System.out.println(localeTemp); }
-						 */
+						
 					}
 				}
 			}
