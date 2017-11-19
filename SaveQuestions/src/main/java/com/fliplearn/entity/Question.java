@@ -35,7 +35,7 @@ public class Question implements Serializable {
 	@Column(name = "Topic_Name")
 	private String topicName;
 	@JsonProperty(value = "question")
-	@Column(name = "Question_Title" ,columnDefinition="TEXT")
+	@Column(name = "Question_Title", columnDefinition = "TEXT")
 	private String questionTitle;
 	// private String questionDescription;
 	@Column(name = "Marks")
@@ -44,6 +44,8 @@ public class Question implements Serializable {
 	// private Integer questionTypeId;
 	@Column(name = "Hint", columnDefinition = "TEXT")
 	private String hint;
+	@Column(name = "Question_Type")
+	private String question_type;
 	// private String explanations;
 	@JsonProperty(value = "choices")
 	@Column(name = "Options")
@@ -138,6 +140,14 @@ public class Question implements Serializable {
 
 	public void setOptionsList(List<Choices> optionsList) {
 		this.optionsList = optionsList;
+	}
+
+	public String getQuestion_type() {
+		return question_type;
+	}
+
+	public void setQuestion_type(String question_type) {
+		this.question_type = question_type;
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class Choices implements Serializable {
 	@Column(name = "Choice_Id")
 	private Integer optionId;
 	@JsonProperty(value = "choice")
-	@Column(name = "Choice")
+	@Column(name = "Choice" ,columnDefinition="TEXT")
 	private String optionText;
 	// private String sortOrder;
 	@Column(name = "Marks")
@@ -34,6 +34,8 @@ public class Choices implements Serializable {
 	@JsonProperty(value = "is_right")
 	@Column(name = "Correct_option")
 	private Boolean isCorrectOption;
+	@Column(name = "Choice_Type")
+	private String choice_Type;
 
 	public Choices() {
 		super();
@@ -76,6 +78,14 @@ public class Choices implements Serializable {
 
 	public void setIsCorrectOption(Boolean isCorrectOption) {
 		this.isCorrectOption = isCorrectOption;
+	}
+
+	public String getChoice_Type() {
+		return choice_Type;
+	}
+
+	public void setChoice_Type(String choice_Type) {
+		this.choice_Type = choice_Type;
 	}
 
 	@Override

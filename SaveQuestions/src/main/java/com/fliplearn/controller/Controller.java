@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fliplearn.entity.Choices;
 import com.fliplearn.entity.Question;
 import com.fliplearn.service.QuestionServiceImpl;
 
@@ -22,7 +23,8 @@ public class Controller {
 
 	@RequestMapping(value = "/save", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public void save() throws Exception {
-		
+		// String imagetag="<img";
+		// String mathml="$$";
 		ObjectMapper mapper = new ObjectMapper();
 		File file = new File("C:\\Users\\lakhdeep kaur\\Desktop\\quest");
 		for (File file1 : file.listFiles()) {
@@ -37,9 +39,9 @@ public class Controller {
 						List<Question> listOfquestions = new ArrayList<Question>();
 						for (int i = 0; i < array.length(); i++) {
 							Object s = array.get(i);
-//                           to get the value of hint
-//							JSONObject object = new JSONObject(s.toString());
-//							System.out.println("Hint is : " + object.getString("hint"));
+							// to get the value of hint
+							// JSONObject object = new JSONObject(s.toString());
+							// System.out.println("Hint is : " + object.getString("hint"));
 							Question q = mapper.readValue(s.toString(), Question.class);
 							String[] pathString = path.split("\\\\");
 							String className = pathString[5];
@@ -51,11 +53,41 @@ public class Controller {
 							String topicName = pathString[8];
 							q.setTopicName(topicName);
 							q.setMarks(3);
-							//questionServiceImpl.saveQuestion(q);
+							List<Choices> optionsList = q.getOptionsList();
+							for (Choices c : optionsList) {
+								if (q.getQuestionTitle().contains("<img") && c.getOptionText().contains("$$")) {
+									q.setQuestion_type("TI");
+									c.setChoice_Type("TI");
+								} else if (q.getQuestionTitle().contains("$$") && c.getOptionText().contains("$$")) {
+									q.setQuestion_type("TM");
+									c.setChoice_Type("TM");
+
+								} else if (q.getQuestionTitle().contains("<img") && q.getQuestionTitle().contains("$$")
+										&& c.getOptionText().contains("<img") && c.getOptionText().contains("$$")) {
+									q.setQuestion_type("TIM");
+									c.setChoice_Type("TIM");
+								} else {
+									q.setQuestion_type("T");
+									c.setChoice_Type("T");
+								}
+							}
+							/*
+							 * Pattern mathMl = Pattern.compile("$$"); Pattern image =
+							 * Pattern.compile("<img"); Matcher matcher =
+							 * mathMl.matcher(q.getQuestionTitle()); Matcher matcher1 =
+							 * image.matcher(q.getQuestionTitle()); if (matcher.find()) {
+							 * q.setQuestion_type("TM"); } else if (matcher1.find()) {
+							 * q.setQuestion_type("TI"); } else if (matcher.find() && matcher1.find()) {
+							 * q.setQuestion_type("TIM"); } else { q.setQuestion_type("T"); }
+							 */
+							/*
+							 * if(true) { q.setType("TI"); }
+							 */
+							// questionServiceImpl.saveQuestion(q);
 							listOfquestions.add(q);
 						}
 						System.out.println(listOfquestions);
-						 questionServiceImpl.saveQuestion(listOfquestions);
+						questionServiceImpl.saveQuestion(listOfquestions);
 
 						/*
 						 * ArrayList< JSONObject> json=new ArrayList<JSONObject>(); JSONObject obj;
@@ -66,7 +98,7 @@ public class Controller {
 						 * bufferedReader.readLine()) != null) { obj = (JSONObject) new
 						 * JSONParser().parse(line); json.add(obj);
 						 */
-						
+
 					}
 				}
 			}
